@@ -82,12 +82,76 @@ int main() {
     TRISB = 0b11110000;
     PORTB = 0b00000001;
     
-    while(1) {
-     
-        char key = read_input();
+    unsigned state = 0;
+    char op = ' ';
+    int result = 0;
     
-        if(key == 'c') __delay_ms(1000);
-
+    while(1) {
+        char in = read_input();
+    
+        switch (state) {
+        case 0: // wait for first number
+            if (in >= '0' && in <= '9') { // read a number
+                display(in);
+                result = in - '0';
+                state = 1;
+            }
+            break;
+        case 1: // wait for operator
+            if (in == 'c') {
+                display(' ');
+                state = 0;
+            } else if (in == '+' || in == '-' || in == '*' || in == '/') {
+                display('-');
+                op = in;
+                state = 2;
+            } else if (in == '=') {
+                display(result + '0');
+                state = 3;
+            }
+            break;
+        case 2: // wait for number
+            if (in >= '0' && in <= '9') {
+                display(in);
+                switch (op) {
+                    case 'E': // is a error, do nothing
+                        break;
+                    case '+':
+                        result += (in - '0');
+                        break;
+                    case '-':
+                        result -= (in - '0');
+                        break;
+                    case '*':
+                        result *= (in - '0');
+                        break;
+                    case '/':
+                        if (in == '0') op = 'E';
+                        else result /= (in - '0');
+                }
+                state = 1;
+            } else if (in == '+' || in == '-' || in == '*' || in == '/') {
+                display('-');
+                op = in;
+            } else if (in == 'c') {
+                display(' ');
+                state = 0;
+            } else if (in == '=') {
+                display(result + '0');
+                state = 3;
+            }
+            break;
+        case 3: // blinck the result
+            if (in == 'c') {
+                display(' ');
+                state = 0;
+            } else if (in == '+' || in == '-' || in == '*' || in == '/') {
+                display('-');
+                op = in;
+                state = 2;
+            }
+            break;
+        }
     }
     
     return 0;
