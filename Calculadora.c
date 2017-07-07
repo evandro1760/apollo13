@@ -94,7 +94,7 @@ void interrupt() {     // Interrupt routine called evey 1ms
     } 
     if (cnt == 1500) {
         cnt = 0;
-        PORTA = PORTAcache = 0; //display on
+        PORTA = PORTAcache; //display on
     }
 }
 
@@ -105,8 +105,7 @@ void enable_interrupt() {
 }
 
 void disable_interrupt() {
-    TMR0 = 6; // Overflow in 250 cicles (0.001s = 1ms)
-    INTCON.TMR0IE = 0 // Enable The TMR0 Overflor Interrupt
+    INTCON.TMR0IE = 0 // Disable The TMR0 Overflor Interrupt
 }
 
 int main() {
