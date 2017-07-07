@@ -82,8 +82,36 @@ char read_input() {
     }
 
 }
+unsigned PORTAcache;
+unsigned cnt;          // Define variable cnt
+void interrupt() {     // Interrupt routine called evey 1ms
+    cnt++;             // Interrupt causes cnt to be incremented by 1
+    TMR0 = 6;          // Timer (or counter) TMR0 returns its initial value
+    INTCON.TMR0IF=0;   // Clean bit TMR0IF
+    if (cnt == 1000) {
+        PORTAcache = PORTA;
+        PORTA = 0; //display off
+    } 
+    if (cnt == 1500) {
+        cnt = 0;
+        PORTA = PORTAcache = 0; //display on
+    }
+}
+
+void enable_interrupt() {
+    cnt = 0; 
+    TMR0 = 6; // Overflow in 250 cicles (0.001s = 1ms)
+    INTCON.TMR0IE = 1 // Enable The TMR0 Overflor Interrupt
+}
+
+void disable_interrupt() {
+    TMR0 = 6; // Overflow in 250 cicles (0.001s = 1ms)
+    INTCON.TMR0IE = 0 // Enable The TMR0 Overflor Interrupt
+}
 
 int main() {
+    OPTION_REG = 0x03; // Set TMR0 Rate to 1:16 (250Khz)
+    INTCON.GIE = 1; // Enable The Global Interrupt
 
     CMCON |= 7; // Turn comparators off and enable pins for I/O    
     T1CON = 0b00000001; // set clock
@@ -121,6 +149,7 @@ int main() {
                 } else if (in == '=') {
                     display(result + '0');
                     state = 3;
+                    enable_interrupt();
                 }
                 break;
             case 2: // wait for number
@@ -152,13 +181,16 @@ int main() {
                 } else if (in == '=') {
                     display(result + '0');
                     state = 3;
+                    enable_interrupt();
                 }
                 break;
             case 3: // blinck the result
                 if (in == 'c') {
+                    disable_interrupt();
                     display(' ');
                     state = 0;
                 } else if (in == '+' || in == '-' || in == '*' || in == '/') {
+                    disable_interrupt();
                     display('-');
                     op = in;
                     state = 2;
