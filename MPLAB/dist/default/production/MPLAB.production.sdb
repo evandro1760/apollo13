@@ -1,0 +1,170 @@
+[p LITE_MODE AUTOSTATIC PIC14 PICREGULAR PICMID ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F628A ]
+[d frameptr 6 ]
+"62 /opt/microchip/xc8/v1.42/sources/common/float.c
+[v ___ftpack __ftpack `(f  1 e 3 0 ]
+"86 /opt/microchip/xc8/v1.42/sources/common/ftadd.c
+[v ___ftadd __ftadd `(f  1 e 3 0 ]
+"6 /opt/microchip/xc8/v1.42/sources/common/lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+"15 /opt/microchip/xc8/v1.42/sources/common/Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+"6 /opt/microchip/xc8/v1.42/sources/pic/eeprom.c
+[v _eecpymem eecpymem `(v  1 e 1 0 ]
+"39
+[v _memcpyee memcpyee `(v  1 e 1 0 ]
+"23 /home/lucas/work/furg/microprocessados_sistemas/apollo13/MPLAB/main.c
+[v _display display `(v  1 e 1 0 ]
+"34
+[v _getRow getRow `(i  1 e 2 0 ]
+"50
+[v _read_input read_input `(uc  1 e 1 0 ]
+"87
+[v _clock clock `II(v  1 e 1 0 ]
+"102
+[v _enable_interrupt enable_interrupt `(v  1 e 1 0 ]
+"109
+[v _disable_interrupt disable_interrupt `(v  1 e 1 0 ]
+"114
+[v _main main `(i  1 e 2 0 ]
+"57 /opt/microchip/xc8/v1.42/include/pic16f628a.h
+[v _TMR0 TMR0 `VEuc  1 e 1 @1 ]
+"164
+[v _PORTA PORTA `VEuc  1 e 1 @5 ]
+"226
+[v _PORTB PORTB `VEuc  1 e 1 @6 ]
+[s S20 . 1 `uc 1 RB0 1 0 :1:0 
+`uc 1 RB1 1 0 :1:1 
+`uc 1 RB2 1 0 :1:2 
+`uc 1 RB3 1 0 :1:3 
+`uc 1 RB4 1 0 :1:4 
+`uc 1 RB5 1 0 :1:5 
+`uc 1 RB6 1 0 :1:6 
+`uc 1 RB7 1 0 :1:7 
+]
+"243
+[u S29 . 1 `S20 1 . 1 0 ]
+[v _PORTBbits PORTBbits `VES29  1 e 1 @6 ]
+[s S49 . 1 `uc 1 RBIF 1 0 :1:0 
+`uc 1 INTF 1 0 :1:1 
+`uc 1 T0IF 1 0 :1:2 
+`uc 1 RBIE 1 0 :1:3 
+`uc 1 INTE 1 0 :1:4 
+`uc 1 T0IE 1 0 :1:5 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+"331
+[s S58 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 TMR0IF 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 TMR0IE 1 0 :1:5 
+]
+[u S63 . 1 `S49 1 . 1 0 `S58 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES63  1 e 1 @11 ]
+"464
+[v _T1CON T1CON `VEuc  1 e 1 @16 ]
+"765
+[v _CMCON CMCON `VEuc  1 e 1 @31 ]
+[s S81 . 1 `uc 1 PS 1 0 :3:0 
+`uc 1 PSA 1 0 :1:3 
+`uc 1 T0SE 1 0 :1:4 
+`uc 1 T0CS 1 0 :1:5 
+`uc 1 INTEDG 1 0 :1:6 
+`uc 1 nRBPU 1 0 :1:7 
+]
+"855
+[s S88 . 1 `uc 1 PS0 1 0 :1:0 
+`uc 1 PS1 1 0 :1:1 
+`uc 1 PS2 1 0 :1:2 
+]
+[u S92 . 1 `S81 1 . 1 0 `S88 1 . 1 0 ]
+[v _OPTION_REGbits OPTION_REGbits `VES92  1 e 1 @129 ]
+"905
+[v _TRISA TRISA `VEuc  1 e 1 @133 ]
+"967
+[v _TRISB TRISB `VEuc  1 e 1 @134 ]
+"8 /home/lucas/work/furg/microprocessados_sistemas/apollo13/MPLAB/main.c
+[v _lookup7segCa lookup7segCa `[12]uc  1 e 12 0 ]
+"84
+[v _PORTAcache PORTAcache `ui  1 e 2 0 ]
+"85
+[v _cnt cnt `ui  1 e 2 0 ]
+"114
+[v _main main `(i  1 e 2 0 ]
+{
+"140
+[v main@in in `uc  1 a 1 33 ]
+"137
+[v main@result result `i  1 a 2 31 ]
+"134
+[v main@state state `ui  1 a 2 29 ]
+"136
+[v main@error error `i  1 a 2 27 ]
+"135
+[v main@op op `uc  1 a 1 26 ]
+"218
+} 0
+"50
+[v _read_input read_input `(uc  1 e 1 0 ]
+{
+"52
+[v read_input@kb kb `[4][4]uc  1 a 16 8 ]
+"50
+[v read_input@F614 F614 `[4][4]uc  1 s 16 F614 ]
+"82
+} 0
+"34
+[v _getRow getRow `(i  1 e 2 0 ]
+{
+"35
+[v getRow@row row `i  1 a 2 2 ]
+"46
+} 0
+"102
+[v _enable_interrupt enable_interrupt `(v  1 e 1 0 ]
+{
+"107
+} 0
+"23
+[v _display display `(v  1 e 1 0 ]
+{
+[v display@n n `uc  1 a 1 wreg ]
+[v display@n n `uc  1 a 1 wreg ]
+[v display@n n `uc  1 a 1 0 ]
+"32
+} 0
+"109
+[v _disable_interrupt disable_interrupt `(v  1 e 1 0 ]
+{
+"112
+} 0
+"15 /opt/microchip/xc8/v1.42/sources/common/Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+{
+"17
+[v ___wmul@product product `ui  1 a 2 4 ]
+"15
+[v ___wmul@multiplier multiplier `ui  1 p 2 0 ]
+[v ___wmul@multiplicand multiplicand `ui  1 p 2 2 ]
+"53
+} 0
+"6 /opt/microchip/xc8/v1.42/sources/common/lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+{
+"11
+[v ___lwdiv@quotient quotient `ui  1 a 2 6 ]
+"12
+[v ___lwdiv@counter counter `uc  1 a 1 5 ]
+"6
+[v ___lwdiv@divisor divisor `ui  1 p 2 0 ]
+[v ___lwdiv@dividend dividend `ui  1 p 2 2 ]
+"31
+} 0
+"87 /home/lucas/work/furg/microprocessados_sistemas/apollo13/MPLAB/main.c
+[v _clock clock `II(v  1 e 1 0 ]
+{
+"100
+} 0
