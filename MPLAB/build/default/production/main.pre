@@ -1,7 +1,14 @@
 
 # 1 "main.c"
+
 #pragma config FOSC = INTOSCIO
 #pragma config WDTE = OFF
+#pragma config PWRTE = OFF
+#pragma config MCLRE = ON
+#pragma config BOREN = ON
+#pragma config LVP = OFF
+#pragma config CPD = OFF
+#pragma config CP = OFF
 
 # 26 "/opt/microchip/xc8/v1.42/include/htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -837,7 +844,7 @@ extern unsigned char __resetbits;
 extern __bit __powerdown;
 extern __bit __timeout;
 
-# 8 "main.c"
+# 20 "main.c"
 unsigned char lookup7segCa[] = {
 0b01011111,
 0b00000110,
@@ -853,6 +860,7 @@ unsigned char lookup7segCa[] = {
 0b11011001
 };
 
+
 void display(char n) {
 if (n >= '0' && n <= '9')
 PORTA = lookup7segCa[n - '0'];
@@ -863,6 +871,7 @@ PORTA = lookup7segCa[11];
 if (n == '-')
 PORTA = lookup7segCa[10];
 }
+
 
 int getRow() {
 int row = 0;
@@ -877,7 +886,6 @@ row = 3;
 }
 return row;
 }
-
 
 
 char read_input() {
@@ -895,7 +903,7 @@ _delay((unsigned long)((10)*(4000000/4000.0)));
 
 
 PORTB <<= 1;
-if (PORTB == 0x00) {
+if (!(PORTB & 0b00001111)) {
 PORTB = 0b00000001;
 }
 
@@ -936,12 +944,10 @@ void enable_interrupt() {
 cnt = 0;
 TMR0 = 6;
 INTCONbits.T0IE = 1;
-
 }
 
 void disable_interrupt() {
 INTCONbits.T0IE = 0;
-
 }
 
 int main() {
@@ -962,8 +968,6 @@ PORTB = 0b00000001;
 TRISA = 0;
 PORTA = 0;
 
-
-
 unsigned state = 0;
 char op = ' ';
 int error = 0;
@@ -976,6 +980,7 @@ switch (state) {
 case 0:
 if (in >= '0' && in <= '9') {
 display(in);
+error = 0;
 result = in - '0';
 state = 1;
 }
@@ -989,7 +994,7 @@ display('-');
 op = in;
 state = 2;
 } else if (in == '=') {
-if (error) {
+if (error || result < 0 || result > 9) {
 display('E');
 }
 else {
@@ -1027,7 +1032,12 @@ op = in;
 display(' ');
 state = 0;
 } else if (in == '=') {
+if (error || result < 0 || result > 9) {
+display('E');
+}
+else {
 display(result + '0');
+}
 state = 3;
 enable_interrupt();
 }
